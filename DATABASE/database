@@ -1,0 +1,59 @@
+
+mysql -u root -p
+password>root
+
+
+mysql>create database CLASSROOM;
+
+mysql>use classroom;
+								REGISTRATION
+mysql>create table reg(id int(23) auto_increment,username varchar(23),passwd varchar(34),gender varchar(34),email varchar(34),qua varchar(34),mob varchar(34),marks int(12),primary key(id));
+
+
+
+
+
+
+
+							TEST CONDUCTOR
+
+create table test_conductor(qid int(23) not null,question varchar(255),op1 varchar(23),op2 varchar(23),op3 varchar(23),op4 varchar(23),cans varchar(23));
+
+
+insert into test_conductor values("1","Which of the following function sets first n characters of a string to a given character?","strinit()","strnset()","strset()","strcset()","strnset()");
+
+
+insert into test_conductor values("2","If the two strings are identical, then strcmp() function returns","-1","1","0","YES","0");
+
+
+insert into test_conductor values("3","What are the types of linkages?","Internal and External","External, Internal and None","External and None","Internal","External, Internal and None");
+
+
+insert into test_conductor values("4"," 	
+
+The library function used to find the last occurrence of a character in a string is","strnstr()","laststr()","strrchr()","strstr()","strrchr()");
+
+
+
+insert into test_conductor values("5","The keyword used to transfer control from a function back to the calling function is","switch","goto","goback","return","return");
+
+
+
+insert into test_conductor values("6","Which of the following special symbol allowed in a variable name?","* (asterisk)","| (pipeline)","- (hyphen)","_ (underscore)","_ (underscore)");
+
+
+
+insert into test_conductor values("7","How would you round off a value from 1.66 to 2.0?","ceil(1.66)","floor(1.66)","roundup(1.66)","roundto(1.66)","ceil(1.66)");
+
+
+insert into test_conductor values("8","Which bitwise operator is suitable for turning off a particular bit in a number?","&& operator","& operator"," 	|| operator","! operator","& operator");
+
+									TEST
+create table test(id int(23),qid int(23) references test_conductor,cans varchar(23));
+
+
+									CONTACT
+
+create table cont(name1 varchar(23),email varchar(23),website varchar(23),subject varchar(23),message1 varchar(23));
+
+

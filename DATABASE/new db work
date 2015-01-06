@@ -1,0 +1,261 @@
+TYCO1273@nis-aiktc ~ $ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 46
+Server version: 5.5.31-0ubuntu0.12.10.1 (Ubuntu)
+
+Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database CLASSROOM
+    -> ;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> use CLASSROOM;
+Database changed
+mysql> create table reg(id int(23) auto_increment,username varchar(23),passwd varchar(34),name1 varchar(34),name2 varchar(34),name3 varchar(34),ann int(23),gender varchar(34),email varchar(34),qua varchar(34),mob varchar(34),addrs varchar(34),city varchar(34));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql> create table reg(id int(23) auto_increment,username varchar(23),passwd varchar(34),name1 varchar(34),name2 varchar(34),name3 varchar(34),ann int(23),gender varchar(34),email varchar(34),qua varchar(34),mob varchar(34),addrs varchar(34),city varchar(34),primary key (id));
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> create table test(id int(23) references reg ,qid int(23) not null,question varchar(255),op1 varchar(23),op2 varchar(23),op3 varchar(23),op4 varchar(23),cans varchar(23),primary key(id));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into test values("1","what is html","hyper text","high text","huge text","hex text","hyper text");
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into test values("null","1","what is html","hyper text","high text","huge text","hex text","hyper text");
+Query OK, 1 row affected, 1 warning (0.05 sec)
+
+mysql> insert into test values("null","2","what is php","pre text","preproccing text","pyn text","physical text","preproccing text");
+ERROR 1062 (23000): Duplicate entry '0' for key 'PRIMARY'
+mysql> 
+mysql> 
+mysql> insert into test values("null","3","what is c","programming lang","processor lang","an alphabet","c is c","programming lang");
+ERROR 1062 (23000): Duplicate entry '0' for key 'PRIMARY'
+mysql> 
+mysql> 
+mysql> insert into test values("null","4","who is the founder of c programming language","armash","mark zuckurg","dennis","steve jobs","dennis");
+ERROR 1062 (23000): Duplicate entry '0' for key 'PRIMARY'
+mysql> insert into test values("23","4","who is the founder of c programming language","armash","mark zuckurg","dennis","steve jobs","dennis");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into test values("44","3","what is c","programming lang","processor lang","an alphabet","c is c","programming lang");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into test values("45","2","what is php","pre text","preproccing text","pyn text","physical text","preproccing text");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> create table test_conductor (question varchar(34));
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select * from test_conductor;
++----------+
+| question |
++----------+
+|          |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select * from test_conductor;
++----------+
+| question |
++----------+
+|          |
+| pyn text |
++----------+
+2 rows in set (0.00 sec)
+
+mysql> drop test_conductor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'test_conductor' at line 1
+mysql> drop table test_conductor;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from test_conductor;
+ERROR 1146 (42S02): Table 'CLASSROOM.test_conductor' doesn't exist
+mysql> select * from test;
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+| id | qid | question                                     | op1              | op2              | op3         | op4           | cans             |
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+|  0 |   1 | what is html                                 | hyper text       | high text        | huge text   | hex text      | hyper text       |
+| 23 |   4 | who is the founder of c programming language | armash           | mark zuckurg     | dennis      | steve jobs    | dennis           |
+| 44 |   3 | what is c                                    | programming lang | processor lang   | an alphabet | c is c        | programming lang |
+| 45 |   2 | what is php                                  | pre text         | preproccing text | pyn text    | physical text | preproccing text |
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> rename test to test_conductor;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'test to test_conductor' at line 1
+mysql> alter table test rename to test_conductor;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> select * from test;
+ERROR 1146 (42S02): Table 'CLASSROOM.test' doesn't exist
+mysql> select * from test;
+ERROR 1146 (42S02): Table 'CLASSROOM.test' doesn't exist
+mysql> select * from test_conductor;
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+| id | qid | question                                     | op1              | op2              | op3         | op4           | cans             |
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+|  0 |   1 | what is html                                 | hyper text       | high text        | huge text   | hex text      | hyper text       |
+| 23 |   4 | who is the founder of c programming language | armash           | mark zuckurg     | dennis      | steve jobs    | dennis           |
+| 44 |   3 | what is c                                    | programming lang | processor lang   | an alphabet | c is c        | programming lang |
+| 45 |   2 | what is php                                  | pre text         | preproccing text | pyn text    | physical text | preproccing text |
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+4 rows in set (0.00 sec)
+
+mysql> create table test (id int(23) refrences reg,qid int(23) references test_conductor,ans varchar(23),marks int(23));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences reg,qid int(23) references test_conductor,ans varchar(23),marks int(23' at line 1
+mysql> create table test (id int(23) refrences reg,qid int(23) references test_conductor,ans varchar(23),marks int(23),primary key (id,qid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences reg,qid int(23) references test_conductor,ans varchar(23),marks int(23' at line 1
+mysql> create table test (id int(23) refrences reg primary key,qid int(23) references test_conductor primary key,ans varchar(23),marks int(23));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences reg primary key,qid int(23) references test_conductor primary key,ans ' at line 1
+mysql> create table test (id int(23) refrences reg,qid int(23) references test_conductor,ans varchar(23),marks int(23),primary key (id,qid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences reg,qid int(23) references test_conductor,ans varchar(23),marks int(23' at line 1
+mysql> create table test (id int(23),qid int(23),ans varchar(23),marks int(23),primary key (id,qid),foreign key(id) references reg,foreign key(qid) references test_conductor);
+ERROR 1005 (HY000): Can't create table 'CLASSROOM.test' (errno: 150)
+mysql> create table test(id int(23),qid int(23),ans varchar(23),marks int(23),primary key (id,qid),foreign key(id) references reg,foreign key(qid) references test_conductor);
+ERROR 1005 (HY000): Can't create table 'CLASSROOM.test' (errno: 150)
+mysql> create table test(id int(23),qid int(23),ans varchar(23),marks int(23),primary key (id,qid),foreign key(id) references reg);ERROR 1005 (HY000): Can't create table 'CLASSROOM.test' (errno: 150)
+mysql> create table test(id int(23),qid int(23),ans varchar(23),marks int(23),primary key (id,qid));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> alter table test add foreign key(id) references reg;
+ERROR 1005 (HY000): Can't create table 'CLASSROOM.#sql-4e3_2e' (errno: 150)
+mysql> alter table test add constraint foreign key(id) references reg;
+ERROR 1005 (HY000): Can't create table 'CLASSROOM.#sql-4e3_2e' (errno: 150)
+mysql> select * from test;
+Empty set (0.00 sec)
+
+mysql> desc test;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(23)     | NO   | PRI | 0       |       |
+| qid   | int(23)     | NO   | PRI | 0       |       |
+| ans   | varchar(23) | YES  |     | NULL    |       |
+| marks | int(23)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from test_conductor;;
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+| id | qid | question                                     | op1              | op2              | op3         | op4           | cans             |
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+|  0 |   1 | what is html                                 | hyper text       | high text        | huge text   | hex text      | hyper text       |
+| 23 |   4 | who is the founder of c programming language | armash           | mark zuckurg     | dennis      | steve jobs    | dennis           |
+| 44 |   3 | what is c                                    | programming lang | processor lang   | an alphabet | c is c        | programming lang |
+| 45 |   2 | what is php                                  | pre text         | preproccing text | pyn text    | physical text | preproccing text |
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+4 rows in set (0.00 sec)
+
+ERROR: 
+No query specified
+
+mysql> select * from test_conductor;;
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+| id | qid | question                                     | op1              | op2              | op3         | op4           | cans             |
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+|  0 |   1 | what is html                                 | hyper text       | high text        | huge text   | hex text      | hyper text       |
+| 23 |   4 | who is the founder of c programming language | armash           | mark zuckurg     | dennis      | steve jobs    | dennis           |
+| 44 |   3 | what is c                                    | programming lang | processor lang   | an alphabet | c is c        | programming lang |
+| 45 |   2 | what is php                                  | pre text         | preproccing text | pyn text    | physical text | preproccing text |
++----+-----+----------------------------------------------+------------------+------------------+-------------+---------------+------------------+
+4 rows in set (0.00 sec)
+
+ERROR: 
+No query specified
+
+mysql> desc test;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int(23)     | NO   | PRI | 0       |       |
+| qid   | int(23)     | NO   | PRI | 0       |       |
+| ans   | varchar(23) | YES  |     | NULL    |       |
+| marks | int(23)     | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select * from test;
++----+-----+------+-------+
+| id | qid | ans  | marks |
++----+-----+------+-------+
+|  0 |   0 |      |     0 |
++----+-----+------+-------+
+1 row in set (0.00 sec)
+
+mysql> delete from test where id=0;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from test;
++----+-----+------+-------+
+| id | qid | ans  | marks |
++----+-----+------+-------+
+|  0 |   0 |      |     0 |
++----+-----+------+-------+
+1 row in set (0.00 sec)
+
+mysql> delete from test where id=0;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> select * from test;
++----+-----+-----------+-------+
+| id | qid | ans       | marks |
++----+-----+-----------+-------+
+|  0 |   0 | high text |     0 |
++----+-----+-----------+-------+
+1 row in set (0.00 sec)
+
+mysql> drop table test;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> create table test(id int(23),qid int(23) refrences test_conductor,ans varchar(23),marks int(23),primary key (id,qid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences test_conductor,ans varchar(23),marks int(23),primary key (id,qid))' at line 1
+mysql> create table test(id int(23),qid int(23) references test_conductor,ans varchar(23),marks int(23),primary key (id,qid));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from test;
+Empty set (0.00 sec)
+
+mysql> select * from test;
++----+-----+--------------+-------+
+| id | qid | ans          | marks |
++----+-----+--------------+-------+
+|  0 |   0 | mark zuckurg |     0 |
++----+-----+--------------+-------+
+1 row in set (0.00 sec)
+
+mysql> drop table test;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> create table test(id int(23) refrences reg,qid int(23),ans varchar(23),marks int(23),primary key (id,qid));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'refrences reg,qid int(23),ans varchar(23),marks int(23),primary key (id,qid))' at line 1
+mysql> create table test(id int(23) references reg,qid int(23),ans varchar(23),marks int(23),primary key (id,qid));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> select * from test;
++----+-----+-----------+-------+
+| id | qid | ans       | marks |
++----+-----+-----------+-------+
+|  0 |   0 | high text |     0 |
++----+-----+-----------+-------+
+1 row in set (0.00 sec)
+
+mysql> select * from regf;
+ERROR 1146 (42S02): Table 'CLASSROOM.regf' doesn't exist
+mysql> select * from ref;
+ERROR 1146 (42S02): Table 'CLASSROOM.ref' doesn't exist
+mysql> select * from reg;
++----+----------+--------+-------+-------+-------+------+--------+-------+------+------+-------+------+
+| id | username | passwd | name1 | name2 | name3 | ann  | gender | email | qua  | mob  | addrs | city |
++----+----------+--------+-------+-------+-------+------+--------+-------+------+------+-------+------+
+|  1 | saima    | sam    |       |       |       |    0 | male   |       |      |      |       |      |
++----+----------+--------+-------+-------+-------+------+--------+-------+------+------+-------+------+
+1 row in set (0.00 sec)
+
+

@@ -1,0 +1,16 @@
+mysql> create table test_conductor(id int(23) references reg ,qid int(23) not null,question varchar(255),op1 varchar(23),op2 varchar(23),op3 varchar(23),op4 varchar(23),cans varchar(23),primary key(id));
+
+insert into test_conductor values("011","1","what is html","hyper text","high text","huge text","hex text","hyper text");
+
+
+insert into test_conductor values("402","2","what is php","pre text","preproccing text","pyn text","physical text","preproccing text");
+
+
+insert into test_conductor values("52","3","what is c","programming lang","processor lang","an alphabet","c is c","programming lang");
+
+
+insert into test_conductor values("65","4","who is the founder of c programming language","armash","mark zuckurg","dennis","steve jobs","dennis");
+
+
+
+

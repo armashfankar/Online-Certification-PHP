@@ -1,0 +1,13 @@
+$sql = "SELECT * FROM `questions` ORDER BY RAND() LIMIT 5";
+
+$result = mysql_query($sql);
+while($myrow = mysql_fetch_array($result)){
+  echo $myrow['question'].'<br>';
+  
+$sql2 = "SELECT * FROM `answers` WHERE `answerquestionid` = '{$myrow['questionid']}' ORDER BY `answerposition` ASC";
+ 
+ $result2 = mysql_query($sql2);
+  while($myrow2 = mysql_fetch_array($result2)){
+    echo $myrow2['answer'].'<br>';
+  }
+}  

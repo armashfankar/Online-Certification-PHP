@@ -1,0 +1,38 @@
+<html>
+<head>
+<script type="text/javascript">
+<!--
+var image1=new Image()
+image1.src="images/ins/aptitude-testing.gif"
+var image2=new Image()
+image2.src="images/ins/HTMLWhiteBG2.jpg"
+var image3=new Image()
+image3.src="images/ins/php-logo.jpg"
+var image4=new Image()
+image4.src="images/ins/C-Programming-Language.jpg"
+//-->
+</script>
+</head>
+<body>
+<img src="images/ins/aptitude-testing.gif" name="slide" width="500" height="300" />
+<script>
+<!--
+//variable that will increment through the images
+var step=1
+function slideit(){
+//if browser does not support the image object, exit.
+if (!document.images)
+return
+document.images.slide.src=eval("image"+step+".src")
+if (step<4)
+step++
+else
+step=1
+//call function "slideit()" every 2.5 seconds
+setTimeout("slideit()",2500)
+}
+slideit()
+//-->
+</script>
+</body>
+</html>
